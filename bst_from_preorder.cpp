@@ -24,11 +24,7 @@ public:
     }
 
     void Inorder(Node* p);
-    Node* Delete(Node* p, int key);
-    int Height(Node* p);
   Node *Insert(Node* p, int key); // Updated function signature
-    Node* InPre(Node* p);
-    Node* InSucc(Node* p);
     void createFromPreorder(int pre[], int n);
 };
 
@@ -57,63 +53,7 @@ void BST::Inorder(Node* p) {
     }
 }
 
-Node* BST::Delete(Node* p, int key) {
-    Node* q;
 
-    if (p == NULL) {
-        return NULL;
-    }
-
-    if (p->lchild == NULL && p->rchild == NULL) {
-        if (p == root) {
-            root = NULL;
-        }
-        delete p;
-        return NULL;
-    }
-
-    if (key < p->data) {
-        p->lchild = Delete(p->lchild, key);
-    } else if (key > p->data) {
-        p->rchild = Delete(p->rchild, key);
-    } else {
-        if (Height(p->lchild) > Height(p->rchild)) {
-            q = InPre(p->lchild);
-            p->data = q->data;
-            p->lchild = Delete(p->lchild, q->data);
-        } else {
-            q = InSucc(p->rchild);
-            p->data = q->data;
-            p->rchild = Delete(p->rchild, q->data);
-        }
-    }
-    return p;
-}
-
-int BST::Height(Node* p) {
-    int x;
-    int y;
-    if (p == NULL) {
-        return 0;
-    }
-    x = Height(p->lchild);
-    y = Height(p->rchild);
-    return x > y ? x + 1 : y + 1;
-}
-
-Node* BST::InPre(Node* p) {
-    while (p && p->rchild != NULL) {
-        p = p->rchild;
-    }
-    return p;
-}
-
-Node* BST::InSucc(Node* p) {
-    while (p && p->lchild != NULL) {
-        p = p->lchild;
-    }
-    return p;
-}
 
 void BST::createFromPreorder(int* pre, int n) {
     int i = 0;
@@ -152,23 +92,6 @@ void BST::createFromPreorder(int* pre, int n) {
 }
 
 int main() {
-    BST bs;
-
-    // Recursive Insert
-  bs.root =  bs.Insert(bs.getRoot(), 5);
-    bs.Insert(bs.getRoot(), 2);
-    bs.Insert(bs.getRoot(), 8);
-    bs.Insert(bs.getRoot(), 7);
-    bs.Insert(bs.getRoot(), 9);
-    bs.Insert(bs.getRoot(), 1);
-
-    bs.Inorder(bs.getRoot());
-    cout << endl;
-
-    // Delete
-    bs.Delete(bs.getRoot(), 5);
-    bs.Inorder(bs.getRoot());
-    cout << endl;
 
     // BST from Preorder traversal
     cout << "BST from Preorder: ";
@@ -182,4 +105,3 @@ int main() {
 
     return 0;
 }
-
