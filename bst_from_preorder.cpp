@@ -11,9 +11,9 @@ public:
 };
 
 class BST {
-public:
-    Node* root;
 
+    Node* root;
+public:
 
     BST() {
         root = NULL;
@@ -24,27 +24,9 @@ public:
     }
 
     void Inorder(Node* p);
-  Node *Insert(Node* p, int key); // Updated function signature
     void createFromPreorder(int pre[], int n);
 };
 
-Node* BST::Insert(Node* p, int key) {
-	Node* t;
-	if(p==NULL){
-		t=new Node;
-		t->data = key;
-		t->lchild = NULL;
-		t->rchild = NULL;
-		return t;
-	}
-	if(key<p->data){
-		p->lchild = Insert(p->lchild,key);
-	}else if(key>p->data){
-		p->rchild = Insert(p->rchild,key);
-	}
-	return p;
-}
- 
 void BST::Inorder(Node* p) {
     if (p) {
         Inorder(p->lchild);
